@@ -1,0 +1,6 @@
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\CommonLibs\bin\Debug\CommonLibs.dll
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\CommonLibs\bin\Debug\CommonLibs.pdb
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\CommonLibs\obj\Debug\CommonLibs.csprojAssemblyReference.cache
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\CommonLibs\obj\Debug\CommonLibs.csproj.CoreCompileInputs.cache
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\CommonLibs\obj\Debug\CommonLibs.dll
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\CommonLibs\obj\Debug\CommonLibs.pdb

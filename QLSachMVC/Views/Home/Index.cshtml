@@ -9,25 +9,182 @@
         <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
     </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+
+
+    <h2>Cập Nhật Thông Tin Sách</h2>
+    <div class="form-group">
+        <label for="email">Mã sách</label>
+        <input type="text" class="form-control" id="txtMasach" placeholder="Nhập mã sách" name="MaSach">
     </div>
+    <div class="form-group">
+        <label for="pwd">Tên sách</label>
+        <input type="text" class="form-control" id="txtTenSach" placeholder="Nhập tên sách" name="TenSach">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Đơn Giá</label>
+        <input type="text" class="form-control" id="txtDonGia" placeholder="Nhập đơn giá" name="DonGia">
+    </div>
+    <button type="button" class="btn btn-success" style="margin-top:10px;" id="btnSubmit">Submit</button>
+
+    <div id="noidung">
+        <table id="tbListSach" class="table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã sách</th>
+                    <th>Tên sách</th>
+                    <th>Đơn giá</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#btnSubmit").click(function () {
+                debugger;
+
+                var Masach = $("#txtMasach").val();
+                var TenSach = $("#txtTenSach").val();
+                var DonGia = $("#txtDonGia").val();
+                var data = {
+                    Masach: Masach,
+                    TenSach: TenSach,
+                    DonGia: DonGia
+                };
+
+                $.ajax({
+                    url: '/Home/SachThemSachMoi',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: data
+                }).done(function (SachInfo) {
+                    if (SachInfo=="-1") {
+                        alert("Vui long nhap day du thong tin");
+                        return;
+                    }
+                    if (SachInfo == "-2") {
+                        alert("Vui long nhap ma sach");
+                        return;
+                    }
+                    if (SachInfo == "-3") {
+                        alert("Vui long nhap ten sach");
+                        return;
+                    }
+                    if (SachInfo == "-4") {
+                        alert("Dong gia khong hop le");
+                        return;
+                    }
+                    if (SachInfo == "-5") {
+                        alert("Ma sach khong duoc trung nhau");
+                        return;
+                    }
+
+                    var Rowsach = '';
+
+                    var i = 1;
+                    if (SachInfo.length > 0) {
+                        $("#tbListSach tbody").children().remove()
+
+                    }
+                    $.each(SachInfo, function (key, value) {
+
+                        //CONSTRUCTION OF ROWS HAVING
+                        // DATA FROM JSON OBJECT
+                        Rowsach += '<tr>';
+                        Rowsach += '<td>' + i + '</td>';
+                        Rowsach += '<td>' + value.MaSach + '</td>';
+                        Rowsach += '<td>' + value.TenSach + '</td>';
+                        Rowsach += '<td>' + value.DonGia + '</td>';
+                        Rowsach += '<td> <button type="button" class="btnEdit" data-id=' + value.MaSach +' >Sửa</button></td>';
+                        Rowsach += '<td> <button type="button" class="btnDelete" data-id=' + value.MaSach + ' >Xoa</button></td>';
+
+                        Rowsach += '</tr>';
+                        i++;
+                    });
+
+                    //INSERTING ROWS INTO TABLE
+                    $('table tbody').append(Rowsach);
+                    $("#txtMasach").val("");
+                    $("#txtTenSach").val("");
+                    $("#txtDonGia").val("");
+
+                    //alert(ketqua.Description);
+                });
+            });
+
+        });
+
+
+        $(document).on('click', 'table tbody tr td .btnEdit', function (e) {
+            debugger;
+            var id = $(this).data('id');
+            var data = {
+                Masach: id
+            };
+            $.ajax({
+                url: '/Home/EditSach/'+id,
+                type: 'GET',
+                dataType: 'json',
+                data: data
+            }).done(function (SachEdit) {
+
+                $("#txtMasach").val(SachEdit[0].MaSach);
+                $("#txtTenSach").val(SachEdit[0].TenSach);
+                $("#txtDonGia").val(SachEdit[0].DonGia);
+
+            });
+        });
+
+
+
+        $(document).on('click', 'table tbody tr td .btnDelete', function (e) {
+            debugger;
+            var id = $(this).data('id');
+            var data = {
+                Masach: id
+            };
+            $.ajax({
+                url: '/Home/DeleteSach/' + id,
+                type: 'GET',
+                dataType: 'json',
+                data: data
+            }).done(function (SachsInfo) {
+
+                var Rowsach = '';
+
+                var i = 1;
+                if (SachsInfo.length > 0) {
+                    $("#tbListSach tbody").children().remove()
+
+                }
+                $.each(SachsInfo, function (key, value) {
+
+                    //CONSTRUCTION OF ROWS HAVING
+                    // DATA FROM JSON OBJECT
+                    Rowsach += '<tr>';
+                    Rowsach += '<td>' + i + '</td>';
+                    Rowsach += '<td>' + value.MaSach + '</td>';
+                    Rowsach += '<td>' + value.TenSach + '</td>';
+                    Rowsach += '<td>' + value.DonGia + '</td>';
+                    Rowsach += '<td> <button type="button" class="bntEdit" data-id=' + value.MaSach + ' >Sửa</button></td>';
+                    Rowsach += '<td> <button class=Delete' + value.MaSach + '> Xóa</button></td>';
+
+                    Rowsach += '</tr>';
+                    i++;
+                });
+                $('#tbListSach tbody').append(Rowsach);
+
+            });
+        });
+
+
+
+
+
+    </script>
 </main>

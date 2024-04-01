@@ -1,0 +1,6 @@
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\DataAccess.NetFrameWork\bin\Debug\DataAccess.NetFrameWork.dll
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\DataAccess.NetFrameWork\bin\Debug\DataAccess.NetFrameWork.pdb
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\DataAccess.NetFrameWork\obj\Debug\DataAccess.NetFrameWork.csprojAssemblyReference.cache
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\DataAccess.NetFrameWork\obj\Debug\DataAccess.NetFrameWork.csproj.CoreCompileInputs.cache
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\DataAccess.NetFrameWork\obj\Debug\DataAccess.NetFrameWork.dll
+G:\ASP.NET\Buoi_7_8_QLSachMVC\Buoi_7_8_QLSachMVC\DataAccess.NetFrameWork\obj\Debug\DataAccess.NetFrameWork.pdb
